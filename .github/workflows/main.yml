@@ -19,8 +19,7 @@ jobs:
           distribution: 'temurin'
           java-version: '21'
 
-      - name: Resolve Dependencies
-        run: mvn dependency:resolve
+      
 
       - name: Run Tests
         run: mvn clean test -X
