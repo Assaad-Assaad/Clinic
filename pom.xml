@@ -65,14 +65,14 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.5.2</version>
-<!--                <configuration>-->
-<!--                    <includes>-->
-<!--                        <include>**/*Tests.java</include>-->
-<!--                        <include>**/*Test.java</include>-->
-<!--                    </includes>-->
-<!--                    &lt;!&ndash; Enable detailed output &ndash;&gt;-->
-<!--                    <printSummary>true</printSummary>-->
-<!--                </configuration>-->
+                <configuration>
+                    <includes>
+                        <include>**/*Tests.java</include>
+                        <include>**/*Test.java</include>
+                    </includes>
+                    <!-- Enable detailed output -->
+                    <printSummary>true</printSummary>
+                </configuration>
             </plugin>
         </plugins>
     </build>
