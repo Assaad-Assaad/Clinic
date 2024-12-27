@@ -1,14 +1,16 @@
-name: Java CI with Maven
+name: CI/CD Pipeline for Spring Boot Clinic App
 
 on:
   push:
-    branches: [ "master" ]
+    branches:
+      - main
   pull_request:
-    branches: [ "master" ]
+    branches:
+      - main
 
 jobs:
-  build:
-
+  build-and-test:
+    name: Build and Test Spring Boot App
     runs-on: ubuntu-latest
 
     services:
@@ -26,7 +28,7 @@ jobs:
           --health-retries=3
 
     steps:
-      # Step 1: Checkout the repository
+      # Step 1: Checkout the code
       - name: Checkout code
         uses: actions/checkout@v3
 
@@ -37,17 +39,24 @@ jobs:
           java-version: '21'
           distribution: 'corretto'
 
-      # Step 3: Configure MySQL connection for tests
-      - name: Set up MySQL configuration
+      # Step 3: Cache Maven dependencies
+      - name: Cache Maven dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+
+      # Step 4: Configure database for tests
+      - name: Set up database connection
         run: |
           echo "spring.datasource.url=jdbc:mysql://localhost:3306/clinic?useSSL=false&serverTimezone=UTC" > src/main/resources/application-test.properties
           echo "spring.datasource.username=root" >> src/main/resources/application-test.properties
           echo "spring.datasource.password=root" >> src/main/resources/application-test.properties
 
-      # Step 4: Run unit tests
-      - name: Run unit tests
-        run: mvn -B test --file pom.xml
-
-      # Step 5: Build with Maven
-      - name: Build with Maven
-        run: mvn -B package --file pom.xml
+      # Step 5: Build and Test the application
+      - name: Build and Test
+        run: |
+          mvn clean test
+          mvn package -DskipTests=false
