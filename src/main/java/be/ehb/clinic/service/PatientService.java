@@ -47,5 +47,6 @@ public class PatientService {
         return appointmentRepository.findAllTodayAppointments();
     }
 
+
 }
 

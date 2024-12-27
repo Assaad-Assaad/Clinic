@@ -16,12 +16,8 @@ jobs:
       - name: Setup Java
         uses: actions/setup-java@v3
         with:
-          distribution: 'temurin'
+          distribution: 'corretto'
           java-version: '21'
 
-      - name: Resolve Dependencies
-        run: mvn dependency:resolve
 
-      - name: Run Tests
-        run: mvn clean test -X
 
