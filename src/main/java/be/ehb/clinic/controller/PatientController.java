@@ -57,8 +57,5 @@ public class PatientController {
         return ResponseEntity.ok(todayAppointments);
     }
 
-
-
-
 }
 

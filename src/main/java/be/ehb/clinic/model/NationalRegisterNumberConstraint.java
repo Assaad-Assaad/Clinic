@@ -3,7 +3,6 @@ package be.ehb.clinic.model;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
-
 import java.lang.annotation.*;
 
 @Documented
