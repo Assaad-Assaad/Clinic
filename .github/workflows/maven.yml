@@ -64,3 +64,5 @@ jobs:
 
       - name: Push Docker Image
         run: docker push asaad90/clinic-app:latest
+
+
