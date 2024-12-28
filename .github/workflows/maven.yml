@@ -52,7 +52,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: Clinic
-          path: Clinic/target/Clinic-0.0.1-SNAPSHOT
+          path: target
 
       - name: Build Docker Image
         run: |
