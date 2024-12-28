@@ -48,7 +48,7 @@ public class PatientController {
         return ResponseEntity.ok("Appointment has been successfully created.");
     }
 
-    @GetMapping("/patients/appointments/today")
+    @GetMapping("/appointments/today")
     public ResponseEntity<List<Appointment>> getAppointmentsToday() {
         List<Appointment> todayAppointments = patientService.getAllTodayAppointments();
         if (todayAppointments.isEmpty()) {

@@ -76,7 +76,7 @@ public class Patient {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Patient patient = (Patient) o;
-        return nationalRegisterNumber == patient.nationalRegisterNumber;
+        return nationalRegisterNumber.equals(patient.nationalRegisterNumber) ;
     }
 
     @Override
