@@ -1,4 +1,4 @@
-FROM maven:3.9.9-openjdk-21 AS build
+FROM openjdk:21-jdk
 WORKDIR /app
 COPY target/Clinic-0.0.1-SNAPSHOT.jar Clinic-0.0.1-SNAPSHOT.jar
 EXPOSE 8080
