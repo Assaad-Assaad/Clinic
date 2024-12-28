@@ -37,7 +37,7 @@ jobs:
       - name: Archive JAR file
         uses: actions/upload-artifact@v3
         with:
-          name: app
+          name: Clinic
           path: Clinic/target/*.jar
 
   docker-build:
@@ -51,8 +51,8 @@ jobs:
       - name: Download JAR file
         uses: actions/download-artifact@v3
         with:
-          name: app
-          path: Clinic/target
+          name: Clinic
+          path: Clinic/target/*.jar
 
       - name: Build Docker Image
         run: |
