@@ -33,10 +33,10 @@ jobs:
           cache: maven
 
       - name: Run Unit Tests
-        run: cd path/to/Clinic && mvn -B test
+        run: mvn -B test
 
       - name: Build with Maven
-        run: cd path/to/Clinic && mvn -B package
+        run: mvn -B package
 
       - name: Archive JAR file
         uses: actions/upload-artifact@v3
