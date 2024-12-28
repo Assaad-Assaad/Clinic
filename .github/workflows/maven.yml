@@ -16,11 +16,7 @@ jobs:
           MYSQL_ROOT_PASSWORD: root
         ports:
           - 3306:3306
-        options: >
-          --health-cmd="mysqladmin ping --silent" 
-          --health-interval=10s 
-          --health-timeout=5s 
-          --health-retries=3
+
 
     steps:
       - name: Checkout the code
@@ -34,10 +30,10 @@ jobs:
           cache: maven
 
       - name: Run Unit Tests
-        run: cd Clinic && mvn -B test
+        run: mvn -B test
 
       - name: Build with Maven
-        run: cd Clinic && mvn -B package
+        run: mvn -B package
 
       - name: Archive JAR file
         uses: actions/upload-artifact@v3
