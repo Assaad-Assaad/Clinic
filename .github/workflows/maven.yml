@@ -12,11 +12,8 @@ jobs:
     services:
       mysql:
         image: mysql:8.2.0
-        
-          
         ports:
           - 3306:3306
-
 
     steps:
       - name: Checkout the code
@@ -29,16 +26,17 @@ jobs:
           distribution: 'corretto'
           cache: maven
 
-
-
       - name: Build with Maven
         run: mvn clean install
+
+      - name: Verify build output
+        run: ls -R Clinic/target
 
       - name: Archive JAR file
         uses: actions/upload-artifact@v3
         with:
-          name: app
-          path: Clinic/target/*.jar
+          name: Clinic
+          path: Clinic/target/Clinic-0.0.1-SNAPSHOT.jar
 
   docker-build:
     runs-on: ubuntu-latest
@@ -51,8 +49,11 @@ jobs:
       - name: Download JAR file
         uses: actions/download-artifact@v3
         with:
-          name: app
-          path: Clinic/target
+          name: Clinic
+          path: Clinic/
+
+      - name: List downloaded artifacts
+        run: ls -R Clinic
 
       - name: Build Docker Image
         run: |
