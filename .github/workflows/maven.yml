@@ -12,11 +12,8 @@ jobs:
     services:
       mysql:
         image: mysql:8.2.0
-        
-          
         ports:
           - 3306:3306
-
 
     steps:
       - name: Checkout the code
@@ -29,40 +26,36 @@ jobs:
           distribution: 'corretto'
           cache: maven
 
+      - name: Unit Tests
+        run: mvn test
 
-
-      - name: Build with Maven
-        run: mvn clean install
-
-      - name: Archive JAR file
-        uses: actions/upload-artifact@v3
-        with:
-          name: app
-          path: Clinic/target/*.jar
-
-  docker-build:
-    runs-on: ubuntu-latest
-    needs: maven-build
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Download JAR file
-        uses: actions/download-artifact@v3
-        with:
-          name: app
-          path: Clinic/target
+      - name: Build the application
+        run: |
+          mvn test
+          mvn package
+          
 
       - name: Build Docker Image
-        run: |
-          cd Clinic
-          docker build -f DockerFile -t asaad90/clinic-app:latest .
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          dockerfile: Dockerfile
+          push: false
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/clinic:latest
 
       - name: Login to Docker Hub
-        run: echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u asaad90 --password-stdin
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
 
-      - name: Push Docker Image
-        run: docker push asaad90/clinic-app:latest
+      - name: Push to Docker Hub
+        uses:  docker/build-push-action@v6
+        with:
+          context: .
+          dockerfile: Dockerfile
+          push: true
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/clinic:latest
+
 
 
