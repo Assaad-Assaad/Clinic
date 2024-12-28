@@ -38,7 +38,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: Clinic
-          path: Clinic/target/*.jar
+          path: Clinic/target/Clinic-0.0.1-SNAPSHOT.jar
 
   docker-build:
     runs-on: ubuntu-latest
