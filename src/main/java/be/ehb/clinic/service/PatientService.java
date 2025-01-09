@@ -35,6 +35,7 @@ public class PatientService {
     }
 
 
+    // Make aan appointment
     public void makeAppointment(String patientId, Appointment appointment) {
         Patient patient = patientRepository.findById(patientId)
                 .orElseThrow(() -> new IllegalArgumentException("Patient not found with ID: " + patientId));
